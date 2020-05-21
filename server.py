@@ -1,11 +1,14 @@
 from flask import Flask,render_template,request,Response,jsonify
 from flask_cors import CORS
 import re
+import shop
+
 app = Flask(__name__)
 CORS(app)
+
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def getClothes():
+    return jsonify(shop.clothesCollection)
 
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
@@ -24,3 +27,4 @@ def events():
     event_data = request.get_json()
     print('json data',event_data['name'])
     return jsonify(event_data)
+
