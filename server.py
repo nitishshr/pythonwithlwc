@@ -25,6 +25,10 @@ def hello(name=None):
 @app.route('/events', methods=['POST'])
 def events():
     event_data = request.get_json()
-    print('json data',event_data['name'])
-    return jsonify(event_data)
+    clothType = event_data['clothType']
+    sliderValue = event_data['sliderValue']
+    results = shop.clothesCollection[clothType]
+    filteredResults = list(filter(lambda record: record["price"]<=int(sliderValue),results))
+    return jsonify(filteredResults)
+
 
